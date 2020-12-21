@@ -26,6 +26,17 @@ export const transformBlockquote = (
   });
 
   if (!isActive) {
-    wrapNodes(editor, { type: blockquote.type, children: []});
+    // Is current element a list ?
+    const [match] = Editor.nodes(editor, {
+      match: n => n.type === 'ul' || n.type === 'ol',
+    })
+    if (match) {
+      // If it's a list, we need to wrap the component above the ul/ol block
+      // And not above the "li"
+      const [, listPath] = match;
+      Transforms.wrapNodes(editor, { type: blockquote.type, children: []}, { at: listPath });
+    } else {
+      Transforms.wrapNodes(editor, { type: blockquote.type, children: []});
+    }
   }
 };

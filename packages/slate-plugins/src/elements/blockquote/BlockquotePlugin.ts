@@ -4,8 +4,7 @@ import { DEFAULTS_BLOCKQUOTE } from './defaults';
 import { deserializeBlockquote } from './deserializeBlockquote';
 import { renderElementBlockquote } from './renderElementBlockquote';
 import { BlockquotePluginOptions } from './types';
-import { decoratePreview } from '../../decorators/preview/decoratePreview';
-import { renderLeafPreview } from '../../decorators/preview/renderLeafPreview';
+
 /**
  * Enables support for block quotes, useful for
  * quotations and passages.
@@ -13,8 +12,6 @@ import { renderLeafPreview } from '../../decorators/preview/renderLeafPreview';
 export const BlockquotePlugin = (
   options?: BlockquotePluginOptions
 ): SlatePlugin => ({
-  decorate: decoratePreview(),
-  renderLeaf: renderLeafPreview(),
   renderElement: renderElementBlockquote(options),
   deserialize: deserializeBlockquote(options),
   onKeyDown: getOnHotkeyToggleNodeTypeDefault({

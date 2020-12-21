@@ -6,6 +6,7 @@ import {
   MARK_STRIKETHROUGH,
   toggleList,
   unwrapList,
+  transformBlockquote
 } from '@udecode/slate-plugins';
 import { Editor } from 'slate';
 import { options } from './initialValues';
@@ -66,7 +67,9 @@ export const autoformatRules: AutoformatRule[] = [
   {
     type: options.blockquote.type,
     markup: ['>'],
-    preFormat,
+    format: (editor) => {
+      transformBlockquote(editor, { ...options });
+    },
   },
   {
     type: MARK_BOLD,
