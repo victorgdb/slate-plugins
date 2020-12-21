@@ -194,6 +194,38 @@ export const initialValueForcedLayout: SlateDocument = [
         ],
       },
       {
+        type: options.ul.type,
+        children: [
+          {
+            type: options.li.type,
+            children: [
+              {
+                type: options.p.type,
+                children: [{text: 'Test itemlist1'}]
+              }
+            ]
+          },
+          {
+            type: options.li.type,
+            children: [
+              {
+                type: options.p.type,
+                children: [{text: 'Test itemlist2'}]
+              }
+            ]
+          },
+          {
+            type: options.li.type,
+            children: [
+              {
+                type: options.p.type,
+                children: [{text: 'Test itemlist3'}]
+              }
+            ]
+          },
+        ],
+      },
+      {
         type: options.p.type,
         children: [
           {
