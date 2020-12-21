@@ -68,6 +68,7 @@ import {
   ToolbarImage,
   ToolbarLink,
   ToolbarList,
+  ToolbarBlockquote,
   ToolbarMark,
   ToolbarSearchHighlight,
   UnderlinePlugin,
@@ -273,10 +274,11 @@ export const Plugins = () => {
             typeList={options.ol.type}
             icon={<FormatListNumbered />}
           />
-          <ToolbarElement
+          <ToolbarBlockquote
             type={options.blockquote.type}
             icon={<FormatQuote />}
           />
+
           <ToolbarElement type={options.code_block.type} icon={<CodeBlock />} />
 
           {/* Marks */}

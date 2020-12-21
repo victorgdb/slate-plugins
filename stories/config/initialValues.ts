@@ -185,6 +185,11 @@ export const initialValueForcedLayout: SlateDocument = [
         children: [{ text: '👮 Title' }],
       },
       {
+        type: options.blockquote.type,
+        children: [{ text: 'Hello' }],
+
+      },
+      {
         type: options.p.type,
         children: [
           {

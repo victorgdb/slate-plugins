@@ -1,5 +1,6 @@
 import { StyledElement } from '../../components/StyledComponent/StyledElement';
 import { DEFAULTS_PARAGRAPH } from '../paragraph/defaults';
+
 import { ListKeyOption, ListPluginOptionsValues } from './types';
 
 export const ELEMENT_UL = 'ul';

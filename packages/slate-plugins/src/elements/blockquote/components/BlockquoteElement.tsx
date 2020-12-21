@@ -28,10 +28,11 @@ export const BlockquoteElementBase = ({
     // Other style props
   });
 
+
   return (
-    <blockquote {...attributes} className={classNames.root} {...htmlAttributes}>
+    <div {...attributes} className={classNames.root} {...htmlAttributes}>
       {children}
-    </blockquote>
+    </div>
   );
 };
 
