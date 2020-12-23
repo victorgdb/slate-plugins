@@ -73,6 +73,10 @@ export const onKeyDownExitBreak = ({
       if (isHotkey(hotkey, event) && isNodeType(entry, query)) {
         if (!editor.selection) return;
 
+        const [isInBlockQuote] = Editor.nodes(editor, {
+          match: n => n.type === 'blockquote'
+        });
+
         const { queryEdge, isEdge, isStart } = exitBreakAtEdges(editor, {
           start,
           end,
@@ -89,7 +93,12 @@ export const onKeyDownExitBreak = ({
         if (before) {
           insertPath = selectionPath.slice(0, level + 1);
         } else {
-          insertPath = Path.next(selectionPath.slice(0, level + 1));
+          if (isInBlockQuote) {
+            // In blockquotes, we want to exit break, but not out of the blockquote
+            insertPath = Path.next(selectionPath.slice(0, level + 2));
+          } else {
+            insertPath = Path.next(selectionPath.slice(0, level + 1));
+          }
         }
 
         Transforms.insertNodes(

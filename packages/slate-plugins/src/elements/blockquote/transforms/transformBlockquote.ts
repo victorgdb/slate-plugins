@@ -19,24 +19,18 @@ export const transformBlockquote = (
 
   unwrapNodesByType(editor, blockquote.type);
 
-  // Creating a p node to allow rich content.
-  // e.g: This node will be replaced by list instead of blockquote
-  Transforms.setNodes(editor, {
-    type: p.type,
-  });
-
   if (!isActive) {
     // Is current element a list ?
     const [match] = Editor.nodes(editor, {
-      match: n => n.type === 'ul' || n.type === 'ol',
+      match: n => n.type === 'ul' || n.type === 'ol'
     })
     if (match) {
       // If it's a list, we need to wrap the component above the ul/ol block
       // And not above the "li"
       const [, listPath] = match;
-      Transforms.wrapNodes(editor, { type: blockquote.type, children: []}, { at: listPath });
+      Transforms.wrapNodes(editor, { type: blockquote.type, children: [ ]}, { at: listPath });
     } else {
-      Transforms.wrapNodes(editor, { type: blockquote.type, children: []});
+      Transforms.wrapNodes(editor, { type: blockquote.type, children: [ ]});
     }
   }
 };
