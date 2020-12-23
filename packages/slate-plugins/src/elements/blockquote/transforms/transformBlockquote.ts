@@ -1,10 +1,10 @@
 import { Editor, Transforms } from 'slate';
-import { getNodesByType, isNodeTypeIn } from '../../../common/queries';
-import { wrapNodes } from '../../../common/transforms/wrapNodes';
+import { isNodeTypeIn } from '../../../common/queries';
 import { unwrapNodesByType } from '../../../common/transforms';
 
 import { setDefaults } from '../../../common/utils/setDefaults';
 import { DEFAULTS_BLOCKQUOTE } from '../defaults';
+import { getFirstAndLastSelectedNodesType } from '../../../common/queries/getFirstAndLastSelectedNodesType';
 
 export const transformBlockquote = (
   editor: Editor,
@@ -14,7 +14,7 @@ export const transformBlockquote = (
 ) => {
   if (!editor.selection) return;
 
-  const { p, blockquote } = setDefaults(options, DEFAULTS_BLOCKQUOTE);
+  const { blockquote } = setDefaults(options, DEFAULTS_BLOCKQUOTE);
   const isActive = isNodeTypeIn(editor, blockquote.type);
 
   unwrapNodesByType(editor, blockquote.type);
@@ -22,9 +22,11 @@ export const transformBlockquote = (
   if (!isActive) {
     // Is current element a list ?
     const [match] = Editor.nodes(editor, {
-      match: n => n.type === 'ul' || n.type === 'ol'
+      match: n =>  n.type === 'ul' || n.type === 'ol'
     })
-    if (match) {
+
+    const [firstType, lastType] = getFirstAndLastSelectedNodesType(editor);
+    if (firstType === lastType && firstType === 'ul' || firstType === 'ol') {
       // If it's a list, we need to wrap the component above the ul/ol block
       // And not above the "li"
       const [, listPath] = match;
