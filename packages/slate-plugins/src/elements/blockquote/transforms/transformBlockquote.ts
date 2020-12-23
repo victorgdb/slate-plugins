@@ -20,15 +20,14 @@ export const transformBlockquote = (
   unwrapNodesByType(editor, blockquote.type);
 
   if (!isActive) {
-    // Is current element a list ?
-    const [match] = Editor.nodes(editor, {
-      match: n =>  n.type === 'ul' || n.type === 'ol'
-    })
-
     const [firstType, lastType] = getFirstAndLastSelectedNodesType(editor);
+    // If it's a list, we need to wrap the component above the ul/ol block
+    // And not above the "li"
     if (firstType === lastType && firstType === 'ul' || firstType === 'ol') {
-      // If it's a list, we need to wrap the component above the ul/ol block
-      // And not above the "li"
+      // Get list path
+      const [match] = Editor.nodes(editor, {
+        match: n =>  n.type === 'ul' || n.type === 'ol'
+      })
       const [, listPath] = match;
       Transforms.wrapNodes(editor, { type: blockquote.type, children: [ ]}, { at: listPath });
     } else {
